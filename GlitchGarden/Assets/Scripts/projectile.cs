@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
-public class projectile : MonoBehaviour {
+public class projectile : MonoBehaviour,IDealDamage {
 
 
     public float speed;
-    public float damage;
+    public int damage;
+    private attacker target = null;
 
 	void Update () {
         transform.Translate(Vector3.right * speed * Time.deltaTime);
@@ -14,11 +16,20 @@ public class projectile : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D coll)
     {       
         attacker attacker = coll.gameObject.GetComponent<attacker>();
-        Health health = coll.gameObject.GetComponent<Health>();
-        if (attacker && health)
+        if (attacker)
         {
-            health.DealDamage(damage);
-            Destroy(gameObject);
+            target = attacker;
+            DealDamage(damage);
+            Destroy(this.gameObject);
+        }
+    }
+
+    public void DealDamage(int damage)
+    {
+        target.health -= damage;
+        if (target.health <= 0)
+        {
+            Destroy(target.gameObject);
         }
     }
 }

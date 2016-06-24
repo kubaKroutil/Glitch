@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
-[RequireComponent(typeof(Rigidbody2D))]
-public class attacker : MonoBehaviour {
+using System;
 
+[RequireComponent(typeof(Rigidbody2D))]
+public class attacker : MonoBehaviour, IDealDamage {
+
+    public int health;
     public float seenEverySeconds;
     protected float currentspeed;
-    protected GameObject currentTarget = null;
+    protected Defender currentTarget = null;
     protected Animator animator;
     protected gameTimer gameTimer;
     // Use this for initialization
@@ -26,29 +29,26 @@ public class attacker : MonoBehaviour {
     public void SetSpeed(float speed)
     {
         currentspeed = speed;
-    }
-
-    public void StrikeCurrentTarget(float damage)
-    {
-        if (currentTarget)
-        {
-            Health health = currentTarget.GetComponent<Health>();
-            if (health)
-            {
-                health.DealDamage(damage);
-            }
-        }
-
-    }
-   
+    }  
 
     public virtual void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == "Defender")
         {
             animator.SetBool("isAttacking", true);
-            currentTarget = col.gameObject;
+            currentTarget = col.gameObject.GetComponent<Defender>();
         }
     }
 
+    public void DealDamage(int damage)
+    {
+        if (currentTarget)
+        {
+            currentTarget.health -= damage;
+            if (currentTarget.health <= 0)
+            {
+                Destroy(currentTarget.gameObject);
+            }
+        }
+    }
 }

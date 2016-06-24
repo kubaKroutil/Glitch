@@ -3,7 +3,7 @@ using System.Collections;
 
 public class shooter : Defender {
 
-    public GameObject projectile, gun;
+    public GameObject projectile;
 
     private GameObject projectileParent;
     private spawner myLaneSpawner;
