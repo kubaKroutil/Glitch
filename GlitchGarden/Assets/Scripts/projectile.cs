@@ -20,7 +20,7 @@ public class projectile : MonoBehaviour,IDealDamage {
         {
             target = attacker;
             DealDamage(damage);
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 

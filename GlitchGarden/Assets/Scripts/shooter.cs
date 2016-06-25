@@ -5,20 +5,11 @@ public class shooter : Defender {
 
     public GameObject projectile;
 
-    private GameObject projectileParent;
     private spawner myLaneSpawner;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
-
-        projectileParent = GameObject.Find("Projectiles");
-
-        if (!projectileParent)
-        {
-            projectileParent = new GameObject("Projectiles");
-          
-        }
         SetMyLaneSpawner();
     }
 
@@ -33,10 +24,12 @@ public class shooter : Defender {
             animator.SetBool("isAttacking", false);
         }
     }
-    private void Fire()
+    private void Fire(ProjectileType type)
     {
-        GameObject newProjectile = (GameObject)Instantiate(projectile,transform.position, Quaternion.identity);
-        newProjectile.transform.parent = projectileParent.transform;
+       GameObject projectile = ObjectPooler.instance.GetProjectile(type);
+        projectile.transform.position = transform.position;
+        projectile.transform.rotation = transform.rotation;
+        projectile.SetActive(true);
     }
 
     void SetMyLaneSpawner ()
