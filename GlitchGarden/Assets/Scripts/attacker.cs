@@ -11,7 +11,7 @@ public class attacker : MonoBehaviour, IDealDamage {
     protected float currentspeed;
     protected Defender currentTarget = null;
     protected Animator animator;
-    protected gameTimer gameTimer;
+   
     // Use this for initialization
     void Awake()
     {       

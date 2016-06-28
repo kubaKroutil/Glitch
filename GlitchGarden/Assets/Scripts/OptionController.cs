@@ -8,16 +8,11 @@ public class OptionController : MonoBehaviour {
 
     private MusicManager musicManager;
 
-
-  
-    // Use this for initialization
     void Start() {
         musicManager = GameObject.FindObjectOfType<MusicManager>();
         volumeSlider.value = PlayerPrefs.GetFloat("Volume", volumeSlider.value);
-
     }
 	
-	// Update is called once per frame
 	void Update () {
         musicManager.ChangeVolume(volumeSlider.value);
 	}
@@ -27,7 +22,4 @@ public class OptionController : MonoBehaviour {
         PlayerPrefs.SetFloat("Volume", volumeSlider.value);
         levelManager.LoadLevel("1aStart");
     }
-    
-  
-
 }

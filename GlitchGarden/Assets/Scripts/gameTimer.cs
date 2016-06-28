@@ -12,7 +12,7 @@ public class gameTimer : MonoBehaviour {
     private LevelManager levelManager;
     private GameObject winLabel;
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         slider = GetComponent<Slider>();
         audioSource = GetComponent<AudioSource>();
         levelManager = GameObject.FindObjectOfType<LevelManager>();
@@ -22,9 +22,7 @@ public class gameTimer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        slider.value = Time.timeSinceLevelLoad /levelSec;
-
-       
+        slider.value = Time.timeSinceLevelLoad /levelSec;      
 
         if (Time.timeSinceLevelLoad >= levelSec && !endOfGame)
         {
