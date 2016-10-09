@@ -6,11 +6,11 @@ public class stopButton : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        levelManager = GameObject.FindObjectOfType<LevelManager>();
+        levelManager = new LevelManager();
     }
 
     void OnMouseDown()
     {
-        levelManager.LoadLevel("1aStart");
+        levelManager.LoadLevel("1Start");
     }
 }

@@ -6,8 +6,8 @@ public class LoseCollider : MonoBehaviour {
     private LevelManager levelManager;
 	// Use this for initialization
 	void Start () {
-        levelManager = GameObject.FindObjectOfType<LevelManager>();
-	}
+        levelManager = new LevelManager();
+    }
 
 
     void OnTriggerEnter2D()

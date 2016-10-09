@@ -13,16 +13,17 @@ public class MusicManager : MonoBehaviour {
     {
         DontDestroyOnLoad(gameObject);
         audioSource = GetComponent<AudioSource>();        
-        if (PlayerPrefs.GetFloat("Volume")==0)
-        {
-            PlayerPrefs.SetFloat("Volume", 0.7f);
-        }
-        audioSource.volume = PlayerPrefs.GetFloat("Volume");
+        //if (PlayerPrefs.GetFloat("Volume")==0)
+        //{
+        //    PlayerPrefs.SetFloat("Volume", 0.7f);
+        //}
+        //audioSource.volume = PlayerPrefs.GetFloat("Volume");
     }
 
     
 	void OnLevelWasLoaded (int level)
-    {  
+    {
+        Debug.Log("omg");
             audioSource.clip = levelMusicChangeArray[level];
             audioSource.loop = true;
             audioSource.Play();
@@ -31,5 +32,6 @@ public class MusicManager : MonoBehaviour {
     public void ChangeVolume (float volume)
     {
         audioSource.volume = volume;
+        PlayerPrefs.SetFloat("Volume", volume);
     }
 }

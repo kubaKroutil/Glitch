@@ -9,13 +9,12 @@ public class gameTimer : MonoBehaviour {
     private AudioSource audioSource;   
     private Slider slider;
     private bool endOfGame = false;
-    private LevelManager levelManager;
+
     private GameObject winLabel;
 	// Use this for initialization
 	void Awake () {
         slider = GetComponent<Slider>();
         audioSource = GetComponent<AudioSource>();
-        levelManager = GameObject.FindObjectOfType<LevelManager>();
         winLabel = GameObject.Find("YOUWON");
         winLabel.SetActive(false);
 	}
@@ -42,10 +41,5 @@ public class gameTimer : MonoBehaviour {
         {
             Destroy(obj);   
         }
-    }
-
-    void loadNextLvl ()
-    {
-        levelManager.LoadNextLevel();
     }
 }
