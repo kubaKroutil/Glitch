@@ -12,18 +12,13 @@ public class MusicManager : MonoBehaviour {
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
-        audioSource = GetComponent<AudioSource>();        
-        //if (PlayerPrefs.GetFloat("Volume")==0)
-        //{
-        //    PlayerPrefs.SetFloat("Volume", 0.7f);
-        //}
-        //audioSource.volume = PlayerPrefs.GetFloat("Volume");
+        audioSource = GetComponent<AudioSource>();
+        audioSource.volume = PlayerPrefs.GetFloat("Volume");
     }
 
-    
-	void OnLevelWasLoaded (int level)
+
+    void OnLevelWasLoaded (int level)
     {
-        Debug.Log("omg");
             audioSource.clip = levelMusicChangeArray[level];
             audioSource.loop = true;
             audioSource.Play();

@@ -16,7 +16,6 @@ public class Vendor : attacker {
             animator.SetTrigger("spawnTrigger");
             currentSpawningTime = 0;
         }
-        Debug.Log("zatim"+ currentSpawningTime);
     }
     void SpawnMinions()
     {      

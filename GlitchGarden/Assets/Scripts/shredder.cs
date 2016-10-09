@@ -7,6 +7,6 @@ public class shredder : MonoBehaviour {
     {
 
         coll.gameObject.SetActive(false);
-
+            
     }
 }

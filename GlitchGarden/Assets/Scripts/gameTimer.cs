@@ -1,37 +1,30 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class gameTimer : MonoBehaviour {
 
     public float levelSec = 100;
+    public GameObject winLabel;
+    public GameObject loseLabel;
+    public AudioClip winClip;
+    public AudioClip loseClip;
 
-    private AudioSource audioSource;   
     private Slider slider;
     private bool endOfGame = false;
 
-    private GameObject winLabel;
-	// Use this for initialization
-	void Awake () {
-        slider = GetComponent<Slider>();
-        audioSource = GetComponent<AudioSource>();
-        winLabel = GameObject.Find("YOUWON");
-        winLabel.SetActive(false);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        slider.value = Time.timeSinceLevelLoad /levelSec;      
 
-        if (Time.timeSinceLevelLoad >= levelSec && !endOfGame)
-        {
-            audioSource.Play();
-            DestroyAllTaggedObjects();
-            winLabel.SetActive(true);
-            Invoke("loadNextLvl", audioSource.clip.length);
-            endOfGame = true;
-        }
-	}
+    void Awake() {
+        slider = GetComponent<Slider>();
+    }
+
+    void Update() {
+        slider.value = Time.timeSinceLevelLoad / levelSec;
+
+        if (Time.timeSinceLevelLoad >= levelSec && !endOfGame) LevelWon();
+        if (endOfGame) DestroyAllTaggedObjects();
+    }
 
     void DestroyAllTaggedObjects()
     {
@@ -39,7 +32,31 @@ public class gameTimer : MonoBehaviour {
 
         foreach (GameObject obj in taggedObjects)
         {
-            Destroy(obj);   
+            Destroy(obj);
         }
+    }
+    void LevelWon()
+    {
+        AudioSource.PlayClipAtPoint(winClip, transform.position);
+        winLabel.SetActive(true);
+        Invoke("LoadNextLevel", winClip.length);
+        endOfGame = true;
+    }
+
+    public void LevelLost()
+    {
+        AudioSource.PlayClipAtPoint(loseClip, transform.position); 
+        loseLabel.SetActive(true);
+        Invoke("GoToMenu", loseClip.length);
+        endOfGame = true;
+    }
+    void LoadNextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    void GoToMenu()
+    {
+        SceneManager.LoadScene("1Start");
     }
 }
